@@ -38,7 +38,7 @@ def create_connection(reconn_num = 10, **conn_params):
     
     return client
 
-def insert_data_mongo(client, zno_table, tracker, filenames, batch_size = 1000, **conn_params):
+def insert_data_mongo(client, zno_table, tracker, filenames, batch_size = 1000):
     idx = 0
     helper_row = 0
     if tracker.find_one() is None:
@@ -148,7 +148,7 @@ def main():
     helper_table = db[helper_table_name]
 
     # Insert data
-    client, bool_inserted = insert_data_mongo(client, main_table, helper_table, filenames, host=host, port=port)
+    client, bool_inserted = insert_data_mongo(client, main_table, helper_table, filenames)
     if not bool_inserted:
         if client is not None:
             client.close()
